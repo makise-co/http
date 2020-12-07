@@ -4,7 +4,7 @@ Makise-Co Swoole HTTP Server implementation
 ## Installation
 * Register service provider - `MakiseCo\Http\HttpServiceProvider`
 * Register commands (look at [src/Commands](src/Commands))
-* Minimal configuration required [config](config)
+* Minimal required configuration [config](config)
 * Routes declaration [routes](routes)
 
 ## Example configuration
@@ -31,7 +31,7 @@ return [
 
     ],
 
-    // services list that should be initialized before a worker starts processing requests
+    // list of services that should be initialized before a worker starts processing requests
     // and which should be stopped before a worker exits
     // empty list means - all services should be initialized
     // [null] means - services shouldn't be initialized
