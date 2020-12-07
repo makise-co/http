@@ -18,9 +18,6 @@ class RouteDumpCommandTest extends TestCase
 {
     public function testItWorks(): void
     {
-        putenv('HTTP_WORKER_NUM=1');
-        putenv('HTTP_REACTOR_NUM=1');
-
         $application = new Application(
             dirname(__DIR__) . '/..',
             dirname(__DIR__) . '/../config'

@@ -24,8 +24,7 @@ class HttpServerTest extends TestCase
 {
     public function testItWorks(): void
     {
-        putenv('HTTP_WORKER_NUM=1');
-        putenv('HTTP_REACTOR_NUM=1');
+        $_ENV['HTTP_WORKER_NUM'] = $_ENV['HTTP_REACTOR_NUM'] = 1;
 
         $application = new Application(
             dirname(__DIR__),
@@ -63,8 +62,7 @@ class HttpServerTest extends TestCase
 
     public function testBootstrapperCalled(): void
     {
-        putenv('HTTP_WORKER_NUM=1');
-        putenv('HTTP_REACTOR_NUM=1');
+        $_ENV['HTTP_WORKER_NUM'] = $_ENV['HTTP_REACTOR_NUM'] = 1;
 
         $application = new Application(
             dirname(__DIR__),
@@ -117,8 +115,7 @@ class HttpServerTest extends TestCase
 
     public function testServerShutdownOnWorkerStartError(): void
     {
-        putenv('HTTP_WORKER_NUM=1');
-        putenv('HTTP_REACTOR_NUM=1');
+        $_ENV['HTTP_WORKER_NUM'] = $_ENV['HTTP_REACTOR_NUM'] = 1;
 
         $application = new Application(
             dirname(__DIR__),
