@@ -21,29 +21,13 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class StartHttpSeverCommand extends AbstractCommand
 {
-    protected function configure(): void
-    {
-        $this->setName('http:start');
-        $this->setDescription('Starts HTTP server');
+    protected string $name = 'http:start';
+    protected string $description = 'Starts HTTP server';
 
-        $config = $this->app->getContainer()->get(ConfigRepositoryInterface::class);
-
-        $this->addOption(
-            'host',
-            null,
-            InputOption::VALUE_OPTIONAL,
-            'Server host',
-            $config->get('http.host', '127.0.0.1')
-        );
-
-        $this->addOption(
-            'port',
-            'p',
-            InputOption::VALUE_OPTIONAL,
-            'Server port',
-            $config->get('http.port', 10228)
-        );
-    }
+    protected array $options = [
+        ['host', null, InputOption::VALUE_OPTIONAL, 'Server host', null],
+        ['port', 'p', InputOption::VALUE_OPTIONAL, 'Server port', null],
+    ];
 
     public function handle(EventDispatcher $dispatcher, LoggerInterface $logger, HttpServer $server): int
     {
@@ -53,11 +37,25 @@ class StartHttpSeverCommand extends AbstractCommand
             return 1;
         }
 
+        $host = $this->getOption('host');
+        if (null === $host) {
+            $host = $this
+                ->makise
+                ->getContainer()
+                ->get(ConfigRepositoryInterface::class)
+                ->get('http.host', '127.0.0.1');
+        }
+
         $port = $this->getOption('port');
-        if (null !== $port) {
+        if (null === $port) {
+            $port = $this
+                ->makise
+                ->getContainer()
+                ->get(ConfigRepositoryInterface::class)
+                ->get('http.port', 10228);
+        } else {
             $port = (int)$port;
         }
-        $host = $this->getOption('host');
 
         $dispatcher->addListener(
             ServerStarted::class,

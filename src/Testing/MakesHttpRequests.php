@@ -51,6 +51,12 @@ trait MakesHttpRequests
      */
     protected ?RequestHandlerInterface $requestHandler = null;
 
+    protected function cleanupMakesHttpRequests(): void
+    {
+        // forget request handler
+        $this->requestHandler = null;
+    }
+
     /**
      * Define additional headers to be sent with the request.
      *

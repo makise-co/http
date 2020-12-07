@@ -140,7 +140,7 @@ class RoutesDumpCommand extends AbstractCommand
         } elseif ($name === '{closure}') {
             // remove app path
             $name = str_replace(
-                $this->app->getAppDir(),
+                $this->makise->getAppDir(),
                 '',
                 $reflection->getFileName()
             );
